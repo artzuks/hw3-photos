@@ -5,7 +5,7 @@
       <ul>
         <li v-for="(file, index) in files" :key="file.id">
           <span>{{file.name}}</span> -
-          <span>{{file.size | formatSize}}</span> -
+          <span>{{file.size}}</span> -
           <span v-if="file.error">{{file.error}}</span>
           <span v-else-if="file.success">success</span>
           <span v-else-if="file.active">active</span>
@@ -16,7 +16,7 @@
       <div class="example-btn">
         <file-upload
           class="btn btn-primary"
-          post-action="/upload/post"
+          :custom-action='uploadFile'
           extensions="gif,jpg,jpeg,png,webp"
           accept="image/png,image/gif,image/jpeg,image/webp"
           :multiple="true"
@@ -50,8 +50,9 @@
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState,mapActions } from 'vuex'
 import FileUpload from 'vue-upload-component'
+require('bootstrap/dist/css/bootstrap.min.css');
 export default {
   components: {
     FileUpload,
@@ -67,6 +68,9 @@ export default {
     inputUpdate(files) {
       this.$store.commit('updateFiles', files)
     },
+    ...mapActions([
+      'uploadFile'
+    ]),
   }
 }
 </script>

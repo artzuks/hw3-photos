@@ -1,11 +1,23 @@
 <template>
   <div class="hello">
+      <ul>
+        <li v-for="(file) in s3Files" :key="file.id">
+          <amplify-s3-image :imagePath='file.path'></amplify-s3-image>
+        </li>
+      </ul>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Main'
+  name: 'Album',
+  computed: {
+    ...mapState([
+      's3Files',
+    ])
+  }
 }
 </script>
 
